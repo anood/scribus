@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "marks.h"
 #include "notesstyles.h"
+#include "text/scrptrun.h"
 
 class PageItem_NoteFrame;
 class ScPainter;
@@ -166,12 +167,18 @@ private:
 			: start(s), len(l), dir(d)
 		{ }
 
+		TextRun(int s, int l, int d, UScriptCode sc)
+			: start(s), len(l), dir(d), script(sc)
+		{ }
+
 		int start;
 		int len;
 		int dir;
+		UScriptCode script;
 	};
 	QList<GlyphRun> shapeText();
 	QList<TextRun> itemizeBiDi(QString text);
+	QList<TextRun> itemizeScript(QList<TextRun> runs, QString text);
 	QList<TextRun> itemizeStyles(QList<TextRun> runs, QMap<int, int> textMap);
 };
 
